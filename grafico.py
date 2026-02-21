@@ -14,6 +14,15 @@ def crear_figura():
     #Dibujo de ejes
     ax.axhline(y=0, color='black', linewidth=0.7)
     ax.axvline(x=0, color='black', linewidth=0.7)
+    
     return fig, ax
 
-crear_figura()
+#Evento para agregar puntos con el mouse
+def onclick(event):
+    if event.inaxes:
+        print(f"Clicked at: ({event.xdata:.2f}, {event.ydata:.2f})")
+        
+
+fig, ax = crear_figura()
+fig.canvas.mpl_connect('button_press_event', onclick)
+plt.show()
