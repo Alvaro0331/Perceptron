@@ -18,10 +18,15 @@ def crear_figura():
     return fig, ax
 
 #Evento para agregar puntos con el mouse
+puntos = []  # Lista para almacenar los puntos clickeados
+
 def onclick(event):
     if event.inaxes:
-        print(f"Clicked at: ({event.xdata:.2f}, {event.ydata:.2f})")
-        
+        x, y = event.xdata, event.ydata
+        ax.plot(x, y, 'ro')  # Dibuja un punto rojo en la posición clickeada
+        puntos.append((x, y))  # Agrega el punto a la lista de puntos
+        fig.canvas.draw()  # Actualiza la figura para mostrar el nuevo punto
+        print(f"Current points: {puntos}")
 
 fig, ax = crear_figura()
 fig.canvas.mpl_connect('button_press_event', onclick)
