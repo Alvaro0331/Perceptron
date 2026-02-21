@@ -31,16 +31,29 @@ def crear_widgets(fig):
 
 #Evento para agregar puntos con el mouse
 puntos = []  # Lista para almacenar los puntos clickeados
-
+markers = [] # Lista para almacenar los objetos de los puntos dibujados
 def onclick(event):
     if event.inaxes == ax:
         x, y = event.xdata, event.ydata
-        ax.plot(x, y, 'ro')  # Dibuja un punto rojo en la posición clickeada
+        marker, = ax.plot(x, y, 'ro')  # Dibuja un punto rojo en la posición clickeada
         puntos.append((x, y))  # Agrega el punto a la lista de puntos
+        markers.append(marker)  # Agrega el objeto del punto a la lista de markers
         fig.canvas.draw()  # Actualiza la figura para mostrar el nuevo punto
         print(f"Current points: {puntos}")
 
+
+#Evento para limpiar los puntos
+def clear(event):
+    for marker in markers:
+        marker.remove()  # Elimina el punto de la figura
+    markers.clear()  # Reinicia la lista de markers
+    puntos.clear() # Reinicia la lista de puntos
+    fig.canvas.draw()  # Actualiza la figura para reflejar los cambios
+    print("Points cleared." + f"Current points: {puntos}")
+    
+    
 fig, ax = crear_figura()
 w0Box, w1Box, w2Box, plotButton, clearButton = crear_widgets(fig)
+clearButton.on_clicked(clear)
 fig.canvas.mpl_connect('button_press_event', onclick)
 plt.show()
