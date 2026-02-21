@@ -17,11 +17,23 @@ def crear_figura():
     
     return fig, ax
 
+#Creacion de los widgets
+def crear_widgets(fig):
+    # TextBoxes para los pesos
+    w0Box=widgets.TextBox(plt.axes([0.75, 0.8, 0.1, 0.05]), 'w0', initial='1')
+    w1Box=widgets.TextBox(plt.axes([0.75, 0.7, 0.1, 0.05]), 'w1', initial='1')
+    w2Box=widgets.TextBox(plt.axes([0.75, 0.6, 0.1, 0.05]), 'w2', initial='-1.5')
+    # Botones
+    plotButton=widgets.Button(plt.axes([0.75, 0.3, 0.1, 0.15]), 'Plot', color='lightblue', hovercolor='skyblue')
+    clearButton=widgets.Button(plt.axes([0.75, 0.1, 0.1, 0.05]), 'Clear', color='lightcoral', hovercolor='salmon')
+
+    return w0Box, w1Box, w2Box, plotButton, clearButton
+
 #Evento para agregar puntos con el mouse
 puntos = []  # Lista para almacenar los puntos clickeados
 
 def onclick(event):
-    if event.inaxes:
+    if event.inaxes == ax:
         x, y = event.xdata, event.ydata
         ax.plot(x, y, 'ro')  # Dibuja un punto rojo en la posición clickeada
         puntos.append((x, y))  # Agrega el punto a la lista de puntos
@@ -29,5 +41,6 @@ def onclick(event):
         print(f"Current points: {puntos}")
 
 fig, ax = crear_figura()
+w0Box, w1Box, w2Box, plotButton, clearButton = crear_widgets(fig)
 fig.canvas.mpl_connect('button_press_event', onclick)
 plt.show()
