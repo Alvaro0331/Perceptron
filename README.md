@@ -11,5 +11,5 @@ _Img.1 Vista principal_
 
 
 
-_Img.1 Ejemplo de resultados_
+_Img.2 Ejemplo de resultados_
 <img width="1248" height="751" alt="image" src="https://github.com/user-attachments/assets/368ded50-da63-47d5-9ee4-b934d2cde2c0" />
